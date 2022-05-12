@@ -1,0 +1,34 @@
+<h1 class="text-3xl font-bold underline">Posts</h1>
+
+<%= link_to "Create New Post", new_post_path %>
+
+<br>
+<br>
+<div id="posts">
+  <table>
+     <thead>
+        <tr>
+         <th colspan="4"></th>
+       </tr>
+     </thead>
+
+     <tbody>
+       <% @posts.each do |post| %>
+         <tr>
+           <td><%= link_to "#{post.title}", post %></td>
+           <td><%= link_to 'Edit', edit_post_path(post) %></td>
+           <td><%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+           <td>
+             <b>- Posted by: </b>
+             <%= post.posted_by(current_user, post) %>
+           </td>
+           <td>
+             <b>at: </b>
+             <%= post.posted_at(post) %> <%# By default, UTC timezone values %>
+           </td>
+         </tr>
+       <% end %>
+      </tbody>
+   </table>
+</div>
+

@@ -1,0 +1,12 @@
+<div class="card my-1">
+  <div class="card-body">
+    <%= form_with(model: [post, post.comments.new]) do |f| %>
+      <div class="form-group">
+        <%= f.label 'New comment' %>
+        <br>
+        <%= f.text_area :body, class: 'form-control' %>
+      </div>
+      <%= f.submit 'Submit', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

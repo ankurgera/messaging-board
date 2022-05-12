@@ -1,0 +1,21 @@
+<h1>Post:</h1>
+<div id = "show_post">
+  <p><b>Title: </b><%= @post.title %> </p>
+  <p><b>Body: </b><%= @post.body %> </p>
+</div>
+
+<br>
+<%= render partial: "comments", locals: { post: @post }, class: "comments" %>
+
+<br>
+<%= render partial: "new_comment", locals: { post: @post }, class: "new_comment" %>
+
+<br>
+<br>
+<div>
+  <%= link_to "Edit this post", edit_post_path(@post) %>
+  <%= button_to "Delete this post", @post, method: :delete %>
+  <br>
+  <%= link_to "Back to posts", posts_path %>
+</div>
+

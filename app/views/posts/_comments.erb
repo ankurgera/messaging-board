@@ -1,0 +1,14 @@
+<h1>Comments:</h1>
+
+<div id = "post_comments">
+  <%- comments_of(@post).each do |comment| %>
+    <br>
+    <%= comment.body %>
+    <br>
+    <b>- Posted by: </b>
+      <%= @post.posted_by(current_user, comment) %>
+    <b>at: </b>
+      <%= @post.posted_at(comment) %> <%# By default, UTC timezone values %>
+    <br>
+  <% end %>
+</div>

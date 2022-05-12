@@ -1,0 +1,6 @@
+<%= @comment.body %>
+
+<div>
+  <%= link_to "Edit", edit_comment_path(@comment) %> | 
+  <%= button_to "Delete", @comment, method: :delete %>
+</div>
