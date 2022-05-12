@@ -14,3 +14,4 @@ application up and running.
 
 * CSS
   Tailwind CSS
+
