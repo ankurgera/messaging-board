@@ -1,21 +1,22 @@
 <h1>Post:</h1>
-<div id = "show_post">
+
+<div>
   <p><b>Title: </b><%= @post.title %> </p>
   <p><b>Body: </b><%= @post.body %> </p>
 </div>
 
-<br>
-<%= render partial: "comments", locals: { post: @post }, class: "comments" %>
-
-<br>
-<%= render partial: "new_comment", locals: { post: @post }, class: "new_comment" %>
-
-<br>
-<br>
-<div>
+<div class="mt-5">
   <%= link_to "Edit this post", edit_post_path(@post) %>
-  <%= button_to "Delete this post", @post, method: :delete %>
-  <br>
-  <%= link_to "Back to Posts", posts_path %>
+  <%= link_to "Delete this post", @post, data: { turbo_method: :delete }, class: "ml-2" %>
+</div>
+
+<%= render partial: "comments", locals: { post: @post }, class: "mt-8" %>
+
+<div class="mt-10">
+  <%= render partial: "new_comment", locals: { post: @post }%>
+</div>
+
+<div class="mt-20">
+  <%= button_to "Back to Posts", posts_path, method: :get %>
 </div>
 

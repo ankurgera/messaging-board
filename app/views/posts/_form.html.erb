@@ -11,13 +11,15 @@
     </div>
   <% end %>
 
-  <%= form.label :title, "Title:" %>
-  <%= form.text_field :title%>
+  <div class="flex flex-col">
+    <%= form.label :title, "Title:", class: "font-bold" %>
+    <%= form.text_field :title, class:"mt-2 w-96" %>
 
-  <%= form.label :body, "Body:" %>
-  <%= form.text_area :body %>
+    <%= form.label :body, "Body:", class:"mt-4 font-bold" %>
+    <%= form.text_area :body, class:"mt-2 w-96" %>
+  </div>
 
-  <div>
+  <div class="mt-4">
     <%= form.submit %>
   </div>
 <% end %>
