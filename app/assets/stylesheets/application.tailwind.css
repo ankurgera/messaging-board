@@ -1,4 +1,4 @@
-@tailwind base;
+/*@tailwind base;*/
 @tailwind components;
 @tailwind utilities;
 
@@ -11,3 +11,11 @@
 }
 
 */
+
+h1 {
+  @apply text-3xl text-blue-500 font-bold underline;
+}
+
+a {
+  @apply text-xl text-blue-400 underline;
+}
