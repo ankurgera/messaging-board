@@ -9,7 +9,9 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
-    @post = Post.find(params[:id]).decorate
+    @post = Post.find(params[:id])
+    @pagy, @comments = pagy(@post.comments.order(:created_at))
+    @post = @post.decorate
   end
 
   # GET /posts/new

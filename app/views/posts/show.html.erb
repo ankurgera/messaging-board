@@ -10,7 +10,7 @@
   <%= link_to "Delete this post", @post, data: { turbo_method: :delete }, class: "ml-2" %>
 </div>
 
-<%= render partial: "comments", locals: { post: @post }, class: "mt-8" %>
+<%= render partial: "comments", locals: { comments: @comments, post: @post }, class: "mt-8" %>
 
 <div class="mt-10">
   <%= render partial: "new_comment", locals: { post: @post }%>

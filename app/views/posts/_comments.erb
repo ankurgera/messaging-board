@@ -1,15 +1,23 @@
 <h1>Comments:</h1>
 
+<div class="mt-10">
+  <%== pagy_nav(@pagy) %>
+</div>
+
 <div id = "post_comments">
-  <%- comments_of(@post).each do |comment| %>
+  <%- comments.each do |comment| %>
     <div class="mt-5 bg-gray-300">
       <%= comment.body %>
     </div>
     <div>
       <span class="font-bold">- Posted by:</span>
-      <%= @post.posted_by(current_user, comment) %>
+      <%= post.posted_by(current_user, comment) %>
       <span class="font-bold">, Posted at:</span>
-      <%= @post.posted_at(comment) %> <%# By default, UTC timezone values %>
+      <%= post.posted_at(comment) %> <%# By default, UTC timezone values %>
     </div>
   <% end %>
+</div>
+
+<div class="mt-10">
+  <%== pagy_nav(@pagy) %>
 </div>
