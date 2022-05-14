@@ -36,6 +36,9 @@ gem 'draper'
 # CSS
 gem 'tailwindcss-rails'
 
+# Pagination
+gem 'pagy', '~> 5.10'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
