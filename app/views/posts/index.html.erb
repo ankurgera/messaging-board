@@ -1,8 +1,10 @@
 <h1>Posts</h1>
 
-<%= link_to "Create New Post", new_post_path %>
+<div class="mt-10">
+  <%= button_to "Create New Post", new_post_path, method: :get %>
+</div>
 
-<div id="posts">
+<div class="mt-10">
   <table>
      <thead>
         <tr>

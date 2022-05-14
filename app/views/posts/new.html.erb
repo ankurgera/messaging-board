@@ -2,8 +2,6 @@
 
 <%= render "form", post: @post %>
 
-<br>
-
-<div>
-  <%= link_to "Back to posts", posts_path %>
+<div class="mt-10">
+  <%= button_to "Back to Posts", posts_path, method: :get %>
 </div>
