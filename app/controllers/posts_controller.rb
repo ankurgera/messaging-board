@@ -3,13 +3,13 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @pagy, @posts = pagy(Post.all.order(created_at: :desc))
+    @pagy, @posts = pagy(Post.includes(:user).all.order(created_at: :desc))
     @posts = @posts.decorate
   end
 
   # GET /posts/1 or /posts/1.json
   def show
-    @post = Post.find(params[:id])
+    @post = Post.includes(:comments, :user).find(params[:id])
     @pagy, @comments = pagy(@post.comments.order(:created_at))
     @post = @post.decorate
   end
