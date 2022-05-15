@@ -6,8 +6,8 @@ class User < ApplicationRecord
   validates :first_name, :last_name, :email, presence: true
   validates :email, uniqueness: true
 
-  has_many :posts
-  has_many :comments
+  has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   def full_name
     "#{first_name} #{last_name}"
