@@ -5,9 +5,9 @@ require 'rails_helper'
 RSpec.describe "Users", type: :feature do
   before do
     User.create(first_name: ENV['AUTOMATED_TEST_USER_FIRST_NAME'],
-    	      last_name: ENV['AUTOMATED_TEST_USER_LAST_NAME'],
-    	      email: ENV['AUTOMATED_TEST_USER_EMAIL'],
-    	      password: ENV['AUTOMATED_TEST_USER_PASSWORD'])
+                last_name: ENV['AUTOMATED_TEST_USER_LAST_NAME'],
+                email: ENV['AUTOMATED_TEST_USER_EMAIL'],
+                password: ENV['AUTOMATED_TEST_USER_PASSWORD'])
   end
 
   describe "User Signs in and Signs out" do
