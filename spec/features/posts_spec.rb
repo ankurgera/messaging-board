@@ -4,14 +4,15 @@ require 'rails_helper'
 
 RSpec.describe "Posts", type: :feature do
   before do
-    User.create(first_name: "John",     	
-    	      last_name: "Doe",
-    	      email: ENV['AUTOMATED_TEST_USER_EMAIL'],
-    	      password: ENV['AUTOMATED_TEST_USER_PASSWORD'])
+    User.create(first_name: ENV['AUTOMATED_TEST_USER_FIRST_NAME'],
+                last_name: ENV['AUTOMATED_TEST_USER_LAST_NAME'],
+                email: ENV['AUTOMATED_TEST_USER_EMAIL'],
+                password: ENV['AUTOMATED_TEST_USER_PASSWORD'])
   end
 
   describe "Create a Post" do
-    it "Creates a Post" do	
+    it "Creates a Post" do
+      # Users Sign in
       visit '/users/sign_in'
       fill_in 'Email', with: ENV['AUTOMATED_TEST_USER_EMAIL']
       fill_in 'Password', with: ENV['AUTOMATED_TEST_USER_PASSWORD']
@@ -19,6 +20,7 @@ RSpec.describe "Posts", type: :feature do
       click_button 'Log in'
       expect(page).to have_content 'Signed in successfully'
 
+      # Create a Post
       click_button 'create_new_post'
   	  fill_in 'post_title', with: 'First Post'
   	  fill_in 'post_body', with: 'First Post Body'
@@ -26,6 +28,7 @@ RSpec.describe "Posts", type: :feature do
   	  click_button 'Create Post'
   	  expect(page).to have_content 'Post was successfully created'
 
+      # Users Sign out
   	  visit '/users/sign_out'
   	  expect(page).to have_content 'You need to sign in or sign up before continuing'
   	end
@@ -33,6 +36,7 @@ RSpec.describe "Posts", type: :feature do
 
   describe "Comment on a Post" do
     it "Comments on a Post" do
+      # Users Sign in
       visit '/users/sign_in'
       fill_in 'Email', with: ENV['AUTOMATED_TEST_USER_EMAIL']
       fill_in 'Password', with: ENV['AUTOMATED_TEST_USER_PASSWORD']
@@ -40,6 +44,7 @@ RSpec.describe "Posts", type: :feature do
       click_button 'Log in'
       expect(page).to have_content 'Signed in successfully'
 
+      # Create First Post
       click_button 'create_new_post'
   	  fill_in 'post_title', with: 'First Post'
   	  fill_in 'post_body', with: 'First Post Body'
@@ -47,17 +52,19 @@ RSpec.describe "Posts", type: :feature do
   	  click_button 'Create Post'
   	  expect(page).to have_content 'Post was successfully created'
 
+      # Post a Comment on the post
   	  fill_in 'comment_body', with: 'First Post Comment'
   	  click_button 'Submit'
   	  expect(page).to have_content 'Comment was successfully created'
 
+      # Users Sign out
   	  visit '/users/sign_out'
   	  expect(page).to have_content 'You need to sign in or sign up before continuing'
     end
   end # End of describe "Comment on a Post"
 
   describe "Post 2 comments and veirfy if they are in order of creation" do
-    it "Comments on a Post" do
+    it "Post 2 comments and veirfy if they are in order of creation" do
       # Users Sign in
       visit '/users/sign_in'
       fill_in 'Email', with: ENV['AUTOMATED_TEST_USER_EMAIL']
@@ -98,4 +105,47 @@ RSpec.describe "Posts", type: :feature do
   	  expect(page).to have_content 'You need to sign in or sign up before continuing'
     end
   end # End of describe "Post 2 comments and veirfy if they are in order of creation"
+
+  describe "Create 2 Post and verify if posts are in descending order" do
+    it "Create 2 Post and verify if the last post is on the top" do
+      # Users Sign in
+      visit '/users/sign_in'
+      fill_in 'Email', with: ENV['AUTOMATED_TEST_USER_EMAIL']
+      fill_in 'Password', with: ENV['AUTOMATED_TEST_USER_PASSWORD']
+
+      click_button 'Log in'
+      expect(page).to have_content 'Signed in successfully'
+
+      # Create First Post
+      click_button 'create_new_post'
+      fill_in 'post_title', with: 'First Post'
+      fill_in 'post_body', with: 'First Post Body'
+      click_button 'Create Post'
+      expect(page).to have_content 'Post was successfully created'
+
+      # Click on "Back to Posts" button
+      click_button 'back_to_posts'
+
+      # Create Second Post
+      click_button 'create_new_post'
+      fill_in 'post_title', with: 'Second Post'
+      fill_in 'post_body', with: 'Second Body'
+      click_button 'Create Post'
+      expect(page).to have_content 'Post was successfully created'
+
+      # Click on "Back to Posts" button
+      click_button 'back_to_posts'
+
+      # Verify if the last post is on the top i.e. the "first post"
+      # displayed on the top is the last one posted.
+      within find('#all_posts') do
+        first_post = first(".post_title")
+        expect(first_post).to have_text 'Second Post'
+      end
+
+      # Users Sign out
+      visit '/users/sign_out'
+      expect(page).to have_content 'You need to sign in or sign up before continuing'
+    end
+  end # End of describe "Create 2 Post and verify if posts are in descending order"
 end
