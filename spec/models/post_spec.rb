@@ -34,4 +34,15 @@ RSpec.describe Post, type: :model do
     it { is_expected.to have_many(:comments) }
     it { is_expected.to belong_to(:user) }
   end
+
+  describe 'One user cannot edit another user post' do
+    it 'One user cannot edit another user post' do
+      user1 = create(:user)
+      user2 = create(:user)
+      post1 = create(:post, user: user1)
+
+      expect(user1.owner_of?(post1)).to be true
+      expect(user2.owner_of?(post1)).to be false
+    end
+  end
 end

@@ -9,15 +9,17 @@
     <% posts.each do |post| %>
       <tr>
         <td class="post_title"><%= link_to "#{post.title}", post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to "Delete", post, data: { turbo_method: :delete , confirm: 'Are you sure?'} %></td>
+        <% if current_user.owner_of?(post) %>
+          <td><%= link_to 'Edit', edit_post_path(post) %></td>
+          <td><%= link_to "Delete", post, data: { turbo_method: :delete , confirm: 'Are you sure?'} %></td>
+        <% end %>
         <td>
          <span class="font-bold">- Posted by:</span>
-         <%= post.posted_by(current_user, post) %>
+         <%= posted_by(current_user, post) %>
         </td>
         <td>
           <span class="font-bold">Posted at:</span>
-          <%= post.posted_at(post) %> <%# By default, UTC timezone values %>
+          <%= posted_at(post) %> <%# By default, UTC timezone values %>
         </td>
       </tr>
     <% end %>

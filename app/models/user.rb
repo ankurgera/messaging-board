@@ -12,4 +12,8 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def owner_of?(post)
+    self.id == post.user.id
+  end
 end
