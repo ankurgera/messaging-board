@@ -9,17 +9,4 @@ class PostDecorator < ApplicationDecorator
   #       object.created_at.strftime("%a %m/%d/%y")
   #     end
   #   end
-
-  def posted_by(user, object)
-    if user.full_name == object.user.full_name
-      "You"
-    else
-      object.user.full_name
-    end
-  end
-
-  def posted_at(object)
-    object.created_at.strftime('%d %b %Y, %I:%M:%S %p')
-  end
-
 end
