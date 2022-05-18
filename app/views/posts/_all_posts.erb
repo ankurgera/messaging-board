@@ -1,7 +1,7 @@
 <table id="all_posts">
   <thead>
     <tr>
-      <th colspan="4"></th>
+      <th colspan="5"></th>
     </tr>
   </thead>
 
@@ -9,10 +9,6 @@
     <% posts.each do |post| %>
       <tr>
         <td class="post_title"><%= link_to "#{post.title}", post %></td>
-        <% if current_user.owner_of?(post) %>
-          <td><%= link_to 'Edit', edit_post_path(post) %></td>
-          <td><%= link_to "Delete", post, data: { turbo_method: :delete , confirm: 'Are you sure?'} %></td>
-        <% end %>
         <td>
          <span class="font-bold">- Posted by:</span>
          <%= posted_by(current_user, post) %>
@@ -21,6 +17,10 @@
           <span class="font-bold">Posted at:</span>
           <%= posted_at(post) %> <%# By default, UTC timezone values %>
         </td>
+        <% if current_user.owner_of?(post) %>
+          <td><%= link_to 'Edit', edit_post_path(post) %></td>
+          <td><%= link_to "Delete", post, data: { turbo_method: :delete , confirm: 'Are you sure?'} %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
