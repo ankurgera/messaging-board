@@ -20,7 +20,6 @@
   - bullet
   - brakeman
   - simplecov
-  - draper
 
 * **This application has:**
   - Model unit test cases

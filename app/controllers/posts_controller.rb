@@ -6,7 +6,6 @@ class PostsController < ApplicationController
     @pagy, @posts = pagy(Post.includes(:user)
                              .all
                              .order(created_at: :desc))
-    @posts = @posts.decorate
   end
 
   # GET /posts/1 or /posts/1.json
@@ -15,7 +14,6 @@ class PostsController < ApplicationController
     @pagy, @comments = pagy(Comment.includes(:user)
                                    .where(post_id: params[:id])
                                    .order(:created_at))
-    @post = @post.decorate
   end
 
   # GET /posts/new

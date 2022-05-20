@@ -27,8 +27,6 @@ gem "jbuilder"
 gem 'pg'
 gem 'dotenv-rails'
 gem "devise", "~> 4.8"
-# Decorator
-gem 'draper'
 
 # CSS
 gem 'tailwindcss-rails'
