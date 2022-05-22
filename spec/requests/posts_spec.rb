@@ -7,23 +7,22 @@ RSpec.describe "Posts", type: :request do
     before do
       user = create(:user)
       sign_in user
-      create(:post, title: "First Post")
-      create(:post, title: "Second Post")
-      create(:post, title: "Third Post")
-      get posts_path
+      @post1 = create(:post, title: "First Post")
+      @post2 = create(:post, title: "Second Post")
+      @post3 = create(:post, title: "Third Post")
+      get posts_path, headers: { 'ACCEPT' => 'application/json' }
     end
 
     # Check if the posts are in descending order
     # on the posts index page.
     it do
-      res_body = response.body
-      # JSON.parse is throwing an error. Due to time crunch,
-      # I am implementing the following solution.
-      first_post_index = res_body.index("First Post")
-      third_post_index = res_body.index("Third Post")
+      json_body = JSON.parse(response.body)
 
       expect(response).to have_http_status(:ok)
-      expect(third_post_index).to be < first_post_index
+      # Third Post Comes First
+      expect(json_body.first["id"]).to eq(@post3.id)
+      # First Post Comes Last
+      expect(json_body.last["id"]).to eq(@post1.id)
     end
   end
 
@@ -32,22 +31,19 @@ RSpec.describe "Posts", type: :request do
       user = create(:user)
       sign_in user
       post = create(:post, title: "First Post")
-      create(:comment, post: post, user: user, body: "First Comment")
-      create(:comment, post: post, user: user, body: "Second Comment")
-      get post_path(post)
+      @comment1 = create(:comment, post: post, user: user, body: "First Comment")
+      @comment2 = create(:comment, post: post, user: user, body: "Second Comment")
+      get post_path(post), headers: { 'ACCEPT' => 'application/json' }
     end
 
     # Check if the comments on a post are in ascending order
     # on the post show page.
     it do
-      res_body = response.body
-      # JSON.parse is throwing an error. Due to time crunch,
-      # I am implementing the following solution.
-      first_comment_index = res_body.index("First Comment")
-      second_comment_index = res_body.index("Second Comment")
+      json_body = JSON.parse(response.body)
 
       expect(response).to have_http_status(:ok)
-      expect(first_comment_index).to be < second_comment_index
+      expect(json_body["comments"].first["id"]).to eq(@comment1.id)
+      expect(json_body["comments"].last["id"]).to eq(@comment2.id)
     end
   end
 end
