@@ -10,7 +10,7 @@ RSpec.describe "Posts", type: :request do
       @post1 = create(:post, title: "First Post")
       @post2 = create(:post, title: "Second Post")
       @post3 = create(:post, title: "Third Post")
-      get posts_path, headers: { 'ACCEPT' => 'application/json' }
+      get posts_path, headers: { 'Accept' => 'application/json' }
     end
 
     # Check if the posts are in descending order
@@ -33,7 +33,7 @@ RSpec.describe "Posts", type: :request do
       post = create(:post, title: "First Post")
       @comment1 = create(:comment, post: post, user: user, body: "First Comment")
       @comment2 = create(:comment, post: post, user: user, body: "Second Comment")
-      get post_path(post), headers: { 'ACCEPT' => 'application/json' }
+      get post_path(post), headers: { 'Accept' => 'application/json' }
     end
 
     # Check if the comments on a post are in ascending order
@@ -42,7 +42,9 @@ RSpec.describe "Posts", type: :request do
       json_body = JSON.parse(response.body)
 
       expect(response).to have_http_status(:ok)
+      # First Comment Comes First
       expect(json_body["comments"].first["id"]).to eq(@comment1.id)
+      # Last Comment Comes First
       expect(json_body["comments"].last["id"]).to eq(@comment2.id)
     end
   end
