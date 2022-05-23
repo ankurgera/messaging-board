@@ -42,9 +42,9 @@ RSpec.describe "Posts", type: :request do
       json_body = JSON.parse(response.body)
 
       expect(response).to have_http_status(:ok)
-      # First Comment Comes First
+      # First Comment comes First
       expect(json_body["comments"].first["id"]).to eq(@comment1.id)
-      # Last Comment Comes First
+      # Last Comment comes Last
       expect(json_body["comments"].last["id"]).to eq(@comment2.id)
     end
   end
